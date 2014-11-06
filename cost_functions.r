@@ -18,21 +18,13 @@ ls_gradient_fn<-function(w,X,y){
 }
 
 ## Log loss function
-log_loss_fn<-function(actual, prediction) {
+ll_cost_fn<-function(actual, prediction) {
   epsilon <- .000000000000001
   yhat <- pmin(pmax(prediction, epsilon), 1-epsilon)
   logloss <- -mean(actual*log(yhat)
                    + (1-actual)*log(1 - yhat))
   return(logloss)
 }
-
-
-## computes the gradient of each obs according to the log loss
-gradient_cost_ll_stochastic<-function(w,X,y){
-  -(y*X*(1/(1+exp(X%*%w))) - 
-      (1-y)*X*(1/(1+exp(-X%*%w))))   
-}
-
 
 ## -gradient of the log loss function
 ll_gradient_fn<-function(w,X,y){
